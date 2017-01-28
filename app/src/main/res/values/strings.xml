@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Quizapp</string>
+
+    <!-- Main menu strings -->
+    <string name="play">JUGAR</string>
+    <string name="results">RESULTADOS</string>
+    <string name="others">OTROS JUEGOS SIMILARES</string>
+
+    <!-- Game catalog string -->
+    <string name="game1">Disney</string>
 </resources>
