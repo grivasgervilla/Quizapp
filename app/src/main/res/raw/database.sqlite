@@ -1,0 +1,13 @@
+CREATE TABLE preguntas (
+    _id INTEGER AUTO INCREMENT PRIMARY KEY,
+    pregunta VARCHAR(256),
+    respuestaCorrecta VARCHAR(32) NOT NULL,
+    respuestaIncorrecta1 VARCHAR(32) NOT NULL,
+    respuestaIncorrecta2 VARCHAR(32) NOT NULL,
+    respuestaIncorrecta3 VARCHAR(32) NOT NULL,
+    dificultad CHARACTER NOT NULL DEFAULT 'e',
+    categoria CHARACTER NOT NULL DEFAULT 'Z',
+    tipoPregunta INTEGER NOT NULL DEFAULT 0
+);
+
+INSERT INTO preguntas (pregunta, respuestaCorrecta, respuestaIncorrecta1, respuestaIncorrecta2, respuestaIncorrecta3, categoria) VALUES("El agua es esencial para la vida: en que porcentaje forma parte del peso total del cuerpo humano?", "60-80%", "10-30%", "40-50%", "90-110%", 'G');
