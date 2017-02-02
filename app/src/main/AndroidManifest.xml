@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".GameCatalog" />        
+        <activity android:name=".GameCatalog" />
+        <activity android:name=".Game" />
 
 
 

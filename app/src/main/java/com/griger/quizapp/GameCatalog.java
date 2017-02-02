@@ -19,6 +19,8 @@ public class GameCatalog extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("El numero:" + MainActivity.numero);
+        MainActivity.numero = 41192;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_catalog);
 

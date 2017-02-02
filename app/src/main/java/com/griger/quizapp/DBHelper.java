@@ -1,5 +1,6 @@
 package com.griger.quizapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,15 +12,14 @@ import java.util.Scanner;
 /**
  * Created by pc on 31/01/2017.
  */
-
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String NOMBRE_BD = "DBjuego";
-    public static final int VERSION_ACTUAL_BD = 2;
+    public static final String DB_NAME = "preguntas";
+    public static final int DB_CURRENT_VERSIOÑ = 2;
     protected SQLiteDatabase db;
     protected Context context;
 
     public DBHelper(Context context) {
-        super(context, NOMBRE_BD, null, VERSION_ACTUAL_BD);
+        super(context, DB_NAME, null, DB_CURRENT_VERSIOÑ);
         this.context = context;
         this.open();
     }
@@ -34,11 +34,11 @@ public class DBHelper extends SQLiteOpenHelper {
             sb.append(sc.nextLine());
             sb.append('\n');
             if (sb.indexOf(";") != -1) {
+                System.out.println(sb.toString());
                 sqLiteDatabase.execSQL(sb.toString());
                 sb.delete(0, sb.capacity());
             }
         }
-
     }
 
     @Override
@@ -66,7 +66,32 @@ public class DBHelper extends SQLiteOpenHelper {
             System.out.println(n);
         }
 
-        System.out.println("El número de filas que hay:" + c.getCount());
+        System.out.println("El número de filas que hayyaya:" + c.getCount());
+        c.moveToFirst();
+        System.out.println(c.getString(c.getColumnIndex("question")));
+    }
+
+    public void addQuestions() {
+        this.db.execSQL("DELETE FROM " + DB_NAME + ";");
+
+        Scanner sc = new Scanner(this.context.getResources().openRawResource(R.raw.questions));
+        String[] columnNames = sc.nextLine().split("\\|");
+
+        while(sc.hasNextLine()) {
+            String line = sc.nextLine();
+            String[] values = line.split("\\|");
+            ContentValues valuesDB = new ContentValues();
+
+            for (int i = 0; i < 6; i++)
+                valuesDB.put(columnNames[i], values[i]);
+
+            if (values.length == 8) {
+                valuesDB.put(columnNames[6], values[6]);
+                valuesDB.put(columnNames[7], values[7]);
+            }
+
+            db.insert(DB_NAME, null, valuesDB);
+        }
     }
 
 
