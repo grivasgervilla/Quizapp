@@ -6,12 +6,25 @@
     <TextView
         android:id="@+id/questionTv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/imageIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/questionTv"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+    <ImageButton
+        android:id="@+id/soundBtt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageIv"
+        android:visibility="gone"/>
     <Button
         android:id="@+id/answer1Btt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/questionTv"/>
+        android:layout_below="@+id/soundBtt" />
     <Button
         android:id="@+id/answer2Btt"
         android:layout_width="match_parent"
@@ -26,18 +39,7 @@
         android:id="@+id/answer4Btt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/answer3Btt"/>
-    <ImageView
-        android:id="@+id/imageIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/answer4Btt"
-        android:visibility="gone"/>
-    <ImageButton
-        android:id="@+id/soundBtt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/answer4Btt"
-        android:visibility="gone"/>
+        android:layout_below="@id/answer3Btt"/>
+
 
 </RelativeLayout>

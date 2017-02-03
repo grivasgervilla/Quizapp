@@ -8,4 +8,10 @@
 
     <!-- Game catalog string -->
     <string name="game1">Disney</string>
+
+    <!-- Game strings -->
+    <string name="correctAnswer">¡Correcto!</string>
+    <string name="next">Continuar</string>
+    <string name="wrongAnswer">No es correcto</string>
+    <string name="exit">Salir</string>
 </resources>

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.style.SubscriptSpan;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -56,21 +57,6 @@ public class DBHelper extends SQLiteOpenHelper {
         this.db.close();
     }
 
-    public void list(){
-        System.out.println("DEBUG: Obteniendo todas las columnas de la DB.");
-        Cursor c = this.db.rawQuery("SELECT * FROM preguntas", null);
-        System.out.println("DEBUG: Veamos los nombres de las columnas:");
-        String[] nombres = c.getColumnNames();
-
-        for (String n : nombres){
-            System.out.println(n);
-        }
-
-        System.out.println("El número de filas que hayyaya:" + c.getCount());
-        c.moveToFirst();
-        System.out.println(c.getString(c.getColumnIndex("question")));
-    }
-
     public void addQuestions() {
         this.db.execSQL("DELETE FROM " + DB_NAME + ";");
 
@@ -93,6 +79,54 @@ public class DBHelper extends SQLiteOpenHelper {
             db.insert(DB_NAME, null, valuesDB);
         }
     }
+
+    public ArrayList<Question> getQuestions() {
+        ArrayList<Question> questions = new ArrayList<>();
+        Cursor c = this.db.rawQuery("SELECT * FROM preguntas", null);
+
+        String question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, typeString, res, resType;
+        QuestionType type;
+
+        while (c.moveToNext()){
+            question = c.getString(c.getColumnIndex("question"));
+            correctAnswer = c.getString(c.getColumnIndex("correctAnswer"));
+            wrongAnswer1 = c.getString(c.getColumnIndex("wrongAnswer1"));
+            wrongAnswer2 = c.getString(c.getColumnIndex("wrongAnswer2"));
+            wrongAnswer3 = c.getString(c.getColumnIndex("wrongAnswer3"));
+            typeString = c.getString(c.getColumnIndex("type"));
+            res = c.getString(c.getColumnIndex("res"));
+            resType = c.getString(c.getColumnIndex("resType"));
+
+            switch (typeString){
+                case "G":
+                    type = QuestionType.GENRES;
+                    break;
+                case "C":
+                    type = QuestionType.COMPOSERS;
+                    break;
+                case "I":
+                    type = QuestionType.INSTUMENTS;
+                    break;
+                case "H":
+                    type = QuestionType.HISTORY;
+                    break;
+                default:
+                    type = QuestionType.BASIC;
+                    break;
+            }
+
+            if (resType.equals("N"))
+                questions.add(new Question(question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, type));
+            else if (resType.equals("I"))
+                questions.add(new Question(question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, type, res, ResourceType.IMAGE));
+            else if (resType.equals("S"))
+                questions.add(new Question(question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, type, res, ResourceType.SOUND));
+
+        }
+
+        return questions;
+    }
+
 
 
 }

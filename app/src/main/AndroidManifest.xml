@@ -20,9 +20,8 @@
 
         <activity android:name=".GameCatalog" />
         <activity android:name=".Game" />
-
-
-
+        <activity android:name=".Results" />
+        <activity android:name=".Scores" />
     </application>
 
 </manifest>

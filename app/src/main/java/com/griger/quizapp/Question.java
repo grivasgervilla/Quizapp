@@ -99,4 +99,22 @@ public class Question {
     public void setResType(ResourceType resType) {
         this.resType = resType;
     }
+
+    @Override
+    public String toString() {
+        String description = "";
+        description += "Question: " + question + "\n";
+        description += "Correct Answer: " + correctAnswer + "\n";
+        description += "Wrong Answer 1:" + wrongAnswer1 + "\n";
+        description += "Wrong Answer 2:" + wrongAnswer2 + "\n";
+        description += "Wrong Answer 3:" + wrongAnswer3 + "\n";
+        description += "Question Type:" + type + "\n";
+
+        if (res != null){
+            description += "Resource: " + res + "\n";
+            description += "Resource Type: " + resType;
+        }
+
+        return description;
+    }
 }

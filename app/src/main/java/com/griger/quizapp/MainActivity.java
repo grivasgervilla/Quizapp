@@ -5,21 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-    public static int numero;
+    public static ArrayList<Question> questions;
     private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("SE LLAMA AL ONCREATE OIGA.");
-        numero = 5;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("DEBUG: Creando DBHelper.");
         dbHelper = new DBHelper(this);
         dbHelper.addQuestions();
-        dbHelper.list();
+        questions = dbHelper.getQuestions();
     }
 
     public void goToCatalog(View view) {
@@ -29,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void startGame(View view) {
         Intent intent = new Intent(this, Game.class);
+        startActivity(intent);
+    }
+
+    public void viewScores(View view) {
+        Intent intent = new Intent(this, Scores.class);
         startActivity(intent);
     }
 }
