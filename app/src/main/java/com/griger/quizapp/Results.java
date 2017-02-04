@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by pc on 03/02/2017.
  */
 
-public class Results extends Activity implements View.OnClickListener {
+public class Results extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +26,18 @@ public class Results extends Activity implements View.OnClickListener {
         TextView scoreTV = (TextView) findViewById(R.id.scoreTV);
         TextView answersTV = (TextView) findViewById(R.id.answerTV);
 
-        scoreTV.setText("Puntuación: " + score);
+        String scoreString = "Aciertos: ";
 
-        String answersString = "";
+        for (int i = 0; i < score; i++)
+            scoreString += "&#9835;";
+
+        scoreTV.setText(Html.fromHtml(scoreString));
+
         String redHTML = "<font color=\"red\">";
         String greenHTML = "<font color=\"green\">";
         String endHTML = "</font><br />";
+
+        String answersString = "Respuesta correctas:" + endHTML;
 
         for (int i = 0; i < answers.size(); i++)
             if (gotRight.get(i))
@@ -46,8 +52,7 @@ public class Results extends Activity implements View.OnClickListener {
         System.out.println(gotRight);
     }
 
-    @Override
-    public void onClick(View view) {
-
+    public void back(View view) {
+        finish();
     }
 }

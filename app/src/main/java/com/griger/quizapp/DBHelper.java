@@ -14,13 +14,21 @@ import java.util.Scanner;
  * Created by pc on 31/01/2017.
  */
 public class DBHelper extends SQLiteOpenHelper {
+    private static DBHelper INSTANCE = null;
     public static final String DB_NAME = "preguntas";
-    public static final int DB_CURRENT_VERSIOÑ = 2;
+    public static final int DB_CURRENT_VERSION = 3;
     protected SQLiteDatabase db;
     protected Context context;
 
+    public static DBHelper getInstance(Context context) {
+        if (INSTANCE == null)
+            INSTANCE = new DBHelper(context);
+
+        return INSTANCE;
+    }
+
     public DBHelper(Context context) {
-        super(context, DB_NAME, null, DB_CURRENT_VERSIOÑ);
+        super(context, DB_NAME, null, DB_CURRENT_VERSION);
         this.context = context;
         this.open();
     }

@@ -20,8 +20,8 @@ public class Scores extends Activity {
 
         String scoresString = " ";
 
-        for (int score : scores)
-            scoresString += score + "\n";
+        for (int i = 0; i < scores.size(); i++)
+            scoresString += "Partida " + (i+1) +": " + scores.get(i) + "\n";
 
         TextView scoreTV = (TextView) findViewById(R.id.scores);
         scoreTV.setText(scoresString);

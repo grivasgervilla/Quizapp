@@ -14,4 +14,7 @@
     <string name="next">Continuar</string>
     <string name="wrongAnswer">No es correcto</string>
     <string name="exit">Salir</string>
+
+    <!-- Results screen strings -->
+    <string name="back">Volver</string>
 </resources>

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background">
 
     <TextView
         android:id="@+id/questionTv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:background="#FFFFFF"
+        android:textStyle="bold"
+        android:textColor="#000000"/>
     <ImageView
         android:id="@+id/imageIv"
         android:layout_width="wrap_content"
@@ -16,10 +21,12 @@
         android:visibility="gone"/>
     <ImageButton
         android:id="@+id/soundBtt"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageIv"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:src="@drawable/play"/>
     <Button
         android:id="@+id/answer1Btt"
         android:layout_width="match_parent"

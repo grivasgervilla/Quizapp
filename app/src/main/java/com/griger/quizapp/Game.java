@@ -80,7 +80,7 @@ public class Game extends Activity implements View.OnClickListener {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 //almacenar nueva puntuacion TODO
-                                correctAnswerToast.setText("La respeusta correcta era: " + currentQuestion.getCorrectAnswer());
+                                correctAnswerToast.setText("La respuesta correcta era: " + currentQuestion.getCorrectAnswer());
                                 correctAnswerToast.show();
                                 finish();
                             }
@@ -110,6 +110,7 @@ public class Game extends Activity implements View.OnClickListener {
             imageView.setImageResource(this.getResources().getIdentifier(q.getRes(), "drawable", this.getPackageName()));
         }
         else {
+            System.out.println("Vamos a crear un MediaPlayer");
             soundBtt.setVisibility(View.VISIBLE);
             soundPlayer = MediaPlayer.create(this, this.getResources().getIdentifier(q.getRes(), "raw", this.getPackageName()));
         }
@@ -175,5 +176,7 @@ public class Game extends Activity implements View.OnClickListener {
         super.onDestroy();
         rightMp.release();
         wrongMp.release();
+        if (soundPlayer != null)
+            soundPlayer.release();
     }
 }
