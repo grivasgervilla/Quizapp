@@ -1,7 +1,7 @@
 package com.griger.quizapp;
 
 /**
- * Created by pc on 02/02/2017.
+ * Enumerate with the allowed resource types.
  */
 
 public enum ResourceType {

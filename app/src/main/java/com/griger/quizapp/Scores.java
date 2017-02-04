@@ -7,10 +7,12 @@ import android.widget.TextView;
 import java.util.Vector;
 
 /**
- * Created by pc on 03/02/2017.
+ * Activity that shows score of the player's games.
  */
-
 public class Scores extends Activity {
+    /**
+     * Player's scores.
+     */
     static private Vector<Integer> scores = new Vector<>();
 
     @Override

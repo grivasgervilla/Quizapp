@@ -2,8 +2,6 @@ package com.griger.quizapp;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -11,10 +9,12 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 
 /**
- * Created by pc on 28/01/2017.
+ * Activity that shows other quizz games.
  */
-
 public class GameCatalog extends Activity implements View.OnClickListener {
+    /**
+     * Where we load game web.
+     */
     private WebView webView;
 
     @Override
@@ -27,8 +27,9 @@ public class GameCatalog extends Activity implements View.OnClickListener {
         game1Btt.setOnClickListener(this);
 
         WebSettings webViewSettings = webView.getSettings();
-        webViewSettings.setJavaScriptEnabled(true);
+        webViewSettings.setJavaScriptEnabled(true); //enable JabaScript int the WebView.
 
+        //Open web in the current WebView, no in device web browser.
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url){

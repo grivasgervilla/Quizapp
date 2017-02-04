@@ -5,21 +5,44 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.text.style.SubscriptSpan;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Created by pc on 31/01/2017.
+ * Class that implements our DBHelper. (Singleton)
  */
 public class DBHelper extends SQLiteOpenHelper {
+    /**
+     * singleton instance.
+     */
     private static DBHelper INSTANCE = null;
+
+    /**
+     * DB name.
+     */
     public static final String DB_NAME = "preguntas";
+
+    /**
+     * DB version.
+     */
     public static final int DB_CURRENT_VERSION = 3;
+
+    /**
+     * SQLite DB.
+     */
     protected SQLiteDatabase db;
+
+    /**
+     * DBHelper context.
+     */
     protected Context context;
 
+    /**
+     * Method that returns the singleton instance.
+     * @param context Context that requires the instance.
+     * @return singleton instance.
+     */
     public static DBHelper getInstance(Context context) {
         if (INSTANCE == null)
             INSTANCE = new DBHelper(context);
@@ -27,6 +50,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return INSTANCE;
     }
 
+    /**
+     * Class constructor.
+     * @param context Contexts that requires the DB.
+     */
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_CURRENT_VERSION);
         this.context = context;
@@ -38,6 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
         System.out.println("DEBUG: Creando la BD.");
         StringBuilder sb = new StringBuilder();
 
+        //Read and execute every SQL sentence from raw file.
         Scanner sc = new Scanner(this.context.getResources().openRawResource(R.raw.database));
         while(sc.hasNextLine()) {
             sb.append(sc.nextLine());
@@ -65,13 +93,18 @@ public class DBHelper extends SQLiteOpenHelper {
         this.db.close();
     }
 
+    /**
+     * Method that load data from a CSV formatted file into the DB.
+     */
     public void addQuestions() {
         this.db.execSQL("DELETE FROM " + DB_NAME + ";");
 
         Scanner sc = new Scanner(this.context.getResources().openRawResource(R.raw.questions));
+        //Row fields are separated by |.
         String[] columnNames = sc.nextLine().split("\\|");
 
         while(sc.hasNextLine()) {
+            //Read each line and create values to insert.
             String line = sc.nextLine();
             String[] values = line.split("\\|");
             ContentValues valuesDB = new ContentValues();
@@ -84,12 +117,18 @@ public class DBHelper extends SQLiteOpenHelper {
                 valuesDB.put(columnNames[7], values[7]);
             }
 
+            //Insert new values.
             db.insert(DB_NAME, null, valuesDB);
         }
     }
 
+    /**
+     * Method that returns DB contents with a good format.
+     * @return DB contents in Question format.
+     */
     public ArrayList<Question> getQuestions() {
         ArrayList<Question> questions = new ArrayList<>();
+        //Get
         Cursor c = this.db.rawQuery("SELECT * FROM preguntas", null);
 
         String question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, typeString, res, resType;

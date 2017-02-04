@@ -18,23 +18,73 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ListIterator;
-import java.util.Vector;
 
+/**
+ * Activity that implements game mechanics.
+ */
 public class Game extends Activity implements View.OnClickListener {
     //Interface elements
+
+    /**
+     * Where we place the wording.
+     */
     private TextView textView;
+
+    /**
+     * Buttons where we place answer options.
+     */
     private ArrayList<Button> buttons = new ArrayList<>();
+
+    /**
+     * Button to play question sound (JIC).
+     */
     private ImageButton soundBtt;
+
+    /**
+     * Where we place question image (JIC).
+     */
     private ImageView imageView;
 
-    //Auz
+    //Auxiliar elements
+
+    /**
+     * current game question.
+     */
     private Question currentQuestion;
+
+    /**
+     * question iterator.
+     */
     private ListIterator<Question> it;
+
+    /**
+     * tell the user that he had got right.
+     */
     private Toast correctAnswerToast;
+
+    /**
+     * media players.
+     */
     private MediaPlayer rightMp, wrongMp, soundPlayer;
+
+    /**
+     * tell the user that he had got wrong.
+     */
     private Dialog wrongDialog;
+
+    /**
+     * current game player score.
+     */
     private int score = 0;
+
+    /**
+     * Right game answers.
+     */
     private ArrayList<String> answers = new ArrayList<>();
+
+    /**
+     * had user got right or wrong on this question?
+     */
     private ArrayList<Boolean> gotRight = new ArrayList<>();
 
 
@@ -53,10 +103,10 @@ public class Game extends Activity implements View.OnClickListener {
         soundBtt = (ImageButton) findViewById(R.id.soundBtt);
         imageView = (ImageView) findViewById(R.id.imageIv);
 
-        Collections.shuffle(MainActivity.questions);
+        Collections.shuffle(MainActivity.questions);//randomize question appearance.
         it = MainActivity.questions.listIterator();
 
-        loadNextQuestion();
+        loadNextQuestion(); //load first question.
 
         for (Button b : buttons)
             b.setOnClickListener(this);
@@ -79,22 +129,27 @@ public class Game extends Activity implements View.OnClickListener {
                 .setNegativeButton(R.string.exit,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                //almacenar nueva puntuacion TODO
                                 correctAnswerToast.setText("La respuesta correcta era: " + currentQuestion.getCorrectAnswer());
-                                correctAnswerToast.show();
+                                correctAnswerToast.show(); //Show correct answer.
                                 finish();
                             }
                         })
                 .create();
 
+        //If the user doesn't touch one dialog's button thet it doesn't dissapear.
         wrongDialog.setCanceledOnTouchOutside(false);
     }
 
+    /**
+     * Method that loads question data into the game screen.
+     * @param q the question.
+     */
     private void uploadQuestionInformation (Question q){
+        //Questions don't have sound or image by default.
         soundBtt.setVisibility(View.GONE);
         imageView.setVisibility(View.GONE);
 
-        Collections.shuffle(buttons);
+        Collections.shuffle(buttons); //randomize answer options order.
 
         textView.setText(q.getQuestion());
         buttons.get(0).setText(q.getCorrectAnswer());
@@ -102,31 +157,30 @@ public class Game extends Activity implements View.OnClickListener {
         buttons.get(2).setText(q.getWrongAnswer2());
         buttons.get(3).setText(q.getWrongAnswer3());
 
-        if (q.getResType() == ResourceType.EMPTY){
-
-        }
-        else if (q.getResType() == ResourceType.IMAGE){
+        if (q.getResType() == ResourceType.IMAGE){ //the question have an image.
             imageView.setVisibility(View.VISIBLE);
             imageView.setImageResource(this.getResources().getIdentifier(q.getRes(), "drawable", this.getPackageName()));
         }
-        else {
-            System.out.println("Vamos a crear un MediaPlayer");
+        else if (q.getResType() == ResourceType.SOUND) { //the question hava a sound.
             soundBtt.setVisibility(View.VISIBLE);
             soundPlayer = MediaPlayer.create(this, this.getResources().getIdentifier(q.getRes(), "raw", this.getPackageName()));
         }
     }
 
+    /**
+     * Method that iterate over game questions.
+     */
     private void loadNextQuestion() {
         if (it.hasNext()){
             currentQuestion = it.next();
             uploadQuestionInformation(currentQuestion);
         }
-        else{
+        else{ //if there aren't more questions then go to results screen.
             Intent intent = new Intent(this, Results.class);
             intent.putExtra("SCORE", score);
             intent.putExtra("ANSWERS", answers);
             intent.putExtra("GOT_RIGHT", gotRight);
-            Scores.addScore(score);
+            Scores.addScore(score); //save player score.
             finish();
             startActivity(intent);
         }
@@ -134,10 +188,10 @@ public class Game extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == buttons.get(0).getId()){
+        if (view.getId() == buttons.get(0).getId()){ //Player choose right answer.
             if (soundPlayer != null)
-                stopSound();
-            rightMp.start();
+                stopSound(); //stop question sound.
+            rightMp.start(); //play right answer sound.
 
             answers.add(currentQuestion.getCorrectAnswer());
             gotRight.add(true);
@@ -145,9 +199,9 @@ public class Game extends Activity implements View.OnClickListener {
 
             loadNextQuestion();
 
-            correctAnswerToast.show();
+            correctAnswerToast.show(); //tell player that he had got right.
         }
-        else if (view.getId() == buttons.get(1).getId() || view.getId() == buttons.get(2).getId() || view.getId() == buttons.get(3).getId()){
+        else if (view.getId() == buttons.get(1).getId() || view.getId() == buttons.get(2).getId() || view.getId() == buttons.get(3).getId()){ //user choose a wrong answer.
             if (soundPlayer != null)
                 stopSound();
             wrongMp.start();
@@ -162,6 +216,9 @@ public class Game extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     * Method that stop question sound.
+     */
     private void stopSound(){
         soundPlayer.stop();
         try {

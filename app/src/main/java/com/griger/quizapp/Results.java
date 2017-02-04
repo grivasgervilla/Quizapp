@@ -10,15 +10,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by pc on 03/02/2017.
+ * Activity that shows player game's results.
  */
-
 public class Results extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.results);
 
+        //Get data from parent activity.
         int score = getIntent().getIntExtra("SCORE", 0);
         ArrayList<Boolean> gotRight = (ArrayList<Boolean>) getIntent().getExtras().getSerializable("GOT_RIGHT");
         ArrayList<String> answers = (ArrayList<String>) getIntent().getExtras().getSerializable("ANSWERS");
@@ -31,6 +31,7 @@ public class Results extends Activity {
         for (int i = 0; i < score; i++)
             scoreString += "&#9835;";
 
+        //Show right game answer.
         scoreTV.setText(Html.fromHtml(scoreString));
 
         String redHTML = "<font color=\"red\">";
@@ -41,9 +42,9 @@ public class Results extends Activity {
 
         for (int i = 0; i < answers.size(); i++)
             if (gotRight.get(i))
-                answersString += greenHTML + answers.get(i) + endHTML;
+                answersString += greenHTML + answers.get(i) + endHTML; //green if player got right.
             else
-                answersString += redHTML + answers.get(i) + endHTML;
+                answersString += redHTML + answers.get(i) + endHTML; //red if player got wrong.
 
         answersTV.setText(Html.fromHtml(answersString));
 
@@ -52,6 +53,10 @@ public class Results extends Activity {
         System.out.println(gotRight);
     }
 
+    /**
+     * Method that terminates this activity.
+     * @param view
+     */
     public void back(View view) {
         finish();
     }

@@ -1,19 +1,59 @@
 package com.griger.quizapp;
 
 /**
- * Created by pc on 02/02/2017.
+ * Class that store a question elements.
  */
 
 public class Question {
+    /**
+     * question wording.
+     */
     private String question;
+
+    /**
+     * question right answer.
+     */
     private String correctAnswer;
+
+    /**
+     * a question wrong answer.
+     */
     private String wrongAnswer1;
+
+    /**
+     * a question wrong answer.
+     */
     private String wrongAnswer2;
+
+    /**
+     * a question wrong answer.
+     */
     private String wrongAnswer3;
+
+    /**
+     * question resource (image or sound).
+     */
     private String res = null;
+
+    /**
+     * question category
+     */
     private QuestionType type;
+
+    /**
+     * question's resource type.
+     */
     private ResourceType resType;
 
+    /**
+     * Class constructor.
+     * @param question
+     * @param correctAnswer
+     * @param wrongAnswer1
+     * @param wrongAnswer2
+     * @param wrongAnswer3
+     * @param type
+     */
     public Question(String question, String correctAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, QuestionType type) {
         this.question = question;
         this.correctAnswer = correctAnswer;
@@ -25,6 +65,17 @@ public class Question {
         this.resType = ResourceType.EMPTY;
     }
 
+    /**
+     * Class constructor.
+     * @param question
+     * @param correctAnswer
+     * @param wrongAnswer1
+     * @param wrongAnswer2
+     * @param wrongAnswer3
+     * @param type
+     * @param res
+     * @param resType
+     */
     public Question(String question, String correctAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, QuestionType type, String res, ResourceType resType) {
         this.question = question;
         this.correctAnswer = correctAnswer;
@@ -40,16 +91,8 @@ public class Question {
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
-
     public String getQuestion() {
         return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
     public String getRes() {
@@ -60,44 +103,20 @@ public class Question {
         this.res = res;
     }
 
-    public QuestionType getType() {
-        return type;
-    }
-
-    public void setType(QuestionType type) {
-        this.type = type;
-    }
-
     public String getWrongAnswer1() {
         return wrongAnswer1;
-    }
-
-    public void setWrongAnswer1(String wrongAnswer1) {
-        this.wrongAnswer1 = wrongAnswer1;
     }
 
     public String getWrongAnswer2() {
         return wrongAnswer2;
     }
 
-    public void setWrongAnswer2(String wrongAnswer2) {
-        this.wrongAnswer2 = wrongAnswer2;
-    }
-
     public String getWrongAnswer3() {
         return wrongAnswer3;
     }
 
-    public void setWrongAnswer3(String wrongAnswer3) {
-        this.wrongAnswer3 = wrongAnswer3;
-    }
-
     public ResourceType getResType() {
         return resType;
-    }
-
-    public void setResType(ResourceType resType) {
-        this.resType = resType;
     }
 
     @Override
