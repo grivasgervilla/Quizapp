@@ -1,0 +1,3 @@
+This app was developed with Android Studio 2.2.3 and it's compatible with devices with Android >= 4.4.
+The app sounds are from [FreeSounds](https://www.freesound.org/).
+The images are from [Flicker](https://www.flickr.com), two of them are royalties free and the [chotis image](https://www.flickr.com/photos/cuellar/19580027/in/photolist-2JmsF-ctjqvA-nd4PwC-nE6zyR-8YKTsK-6X9WBR-d6dmP-6XdWgA-6X9WBk-69ZMPx-4jWQqw-9nG45k-DGJZp-p4TPC4-7siLye-4tVeTX-DGJZz-pjUXkx-nL6T5T-MyJ5m-aw9gYF-9354iE-5pk7fX-ko5Rwr-nsvHCU-4J12HB-nuyi3c-nwk9r6-nd4RRs-nd4Htp-nsvFuf-nuhrdu-rcjYkx-awbX6s-nChj9b-4SSpDf-nmUz5e-473jEB-8YKToD-7dPt1q-p4TUZB-4SNcUa-4wfZZD-azJZSo-HdBkQ-dQ4LHo-iYe2wp-eDULt5-iYe3ai-nd4SVj) have a [Creative Commons License](https://creativecommons.org/licenses/by-nc/2.0/).
